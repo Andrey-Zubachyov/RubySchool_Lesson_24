@@ -20,7 +20,7 @@
 	</head>
 	<body>
 		<div class="container">
-
+			
 			<!-- Static navbar -->
 			<nav class="navbar navbar-default" role="navigation">
 			  <div class="navbar-header">
@@ -40,14 +40,12 @@
 			    </ul>
 			  </div><!--/.nav-collapse -->
 			</nav>
-
 			<div>
-			      <%if @error && @error.length > 0 then %>
+			      <%if @error then %>
 			          <div class="alert alert-danger"><%=@error%></div>
 			      <% end %>
 			      <%= yield %>
 			</div>
-
 	</div>
   </body>
 </html>
