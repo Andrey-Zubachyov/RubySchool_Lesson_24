@@ -1,2 +1,2 @@
-# RubySchool, Lesson 22
-Ruby School Lesson 22
+# RubySchool, Lesson 24
+Ruby School Lesson 24
