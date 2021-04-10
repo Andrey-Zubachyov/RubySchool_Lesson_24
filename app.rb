@@ -21,16 +21,25 @@ post '/visit' do
 	@phone		= params[:phone]	
 	@time_visit	= params[:time_visit]
 	@color		= params[:color]
-	# вывод об ошибке в случае отсуствия записи имени
-	if params[:user_name] == ''
-		@error = "Вы не указали своё имя"
-		erb :visit
-	else
+	# вывод об ошибке в случае отсуствия записи имени через хэш
+	hh = {
+		:user_name => 'Введите имя!',
+		:phone => 'Введите номер телефона!',
+		:time_visit => 'Bведите дату посещения!',
+	}
+
+	hh.each do |key, value|
+		if params[key] == ""
+			# переменной error присвоить значение по ключу
+			@error = hh[key]
+			return erb :visit
+		end
+	end
+
 	f = File.open "./public/user.txt", "a"
 	f.write "Barber: #{@barbers}\nName: #{@user_name}. Number phone: #{@phone}.Date and time visit #{@time_visit} color hair #{@color}\n"
 	f.close
 	erb "Здравствуйте #{@user_name}! Вы записаны к #{@barbers} на #{@time_visit} Выбранный Вами цвет окраски: #{@color}"
-	end
 end
 
 get '/contacts' do
