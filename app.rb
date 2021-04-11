@@ -27,10 +27,10 @@ post '/visit' do
 		:phone => 'Введите номер телефона!',
 		:time_visit => 'Bведите дату посещения!',
 	}
-
+	# проходим по хэшу через each
 	hh.each do |key, value|
 		if params[key] == ""
-			# переменной error присвоить значение по ключу
+			# переменной error присваиваем значение по ключу
 			@error = hh[key]
 			return erb :visit
 		end
