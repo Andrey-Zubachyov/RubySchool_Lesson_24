@@ -4,7 +4,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 
 get '/' do
-	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>!!!"			
+	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>!!!"
 end
 
 get '/about' do
@@ -27,14 +27,19 @@ post '/visit' do
 		:phone => 'Введите номер телефона!',
 		:time_visit => 'Bведите дату посещения!',
 	}
-	# проходим по хэшу через each
-	hh.each do |key, value|
-		if params[key] == ""
-			# переменной error присваиваем значение по ключу
-			@error = hh[key]
-			return erb :visit
-		end
+	# переменной @error передаём хэш с select по значению имеющую путую строку (true == "") и через метод loin передаём строки знатечений через запятую
+	@error = hh.select {|key,_| params[key] == ""}.values.join(" ")
+	if @error != ""
+		return erb :visit
 	end
+	# проходим по хэшу через each
+	# hh.each do |key, value|
+	#	if params[key] == ""
+	#		# переменной error присваиваем значение по ключу
+	#		@error = hh[key]
+	#		return erb :visit
+	#	end
+	# end
 
 	f = File.open "./public/user.txt", "a"
 	f.write "Barber: #{@barbers}\nName: #{@user_name}. Number phone: #{@phone}.Date and time visit #{@time_visit} color hair #{@color}\n"
